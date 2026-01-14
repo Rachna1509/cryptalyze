@@ -17,24 +17,122 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    
+    /* Keyframe Animations */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.7;
+        }
+    }
+    
+    @keyframes glow {
+        0%, 100% {
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3), 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6), 0 12px 40px rgba(0, 212, 255, 0.2);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% {
+            background-position: -1000px 0;
+        }
+        100% {
+            background-position: 1000px 0;
+        }
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
     body {
         background: linear-gradient(135deg, #0a0e27 0%, #10152d 100%);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        animation: fadeInDown 0.8s ease-out;
     }
     
     [data-testid="stMainBlockContainer"] {
         background: linear-gradient(135deg, #0a0e27 0%, #10152d 100%);
         padding-top: 20px;
+        animation: fadeInDown 0.8s ease-out;
     }
     
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #0a0e27 0%, #151d3f 100%);
         border-right: 1px solid rgba(0, 212, 255, 0.08);
+        animation: slideInLeft 0.8s ease-out;
     }
     
     h1, h2, h3 {
         color: #ffffff;
         font-weight: 800;
+        animation: fadeInDown 0.8s ease-out;
     }
     
     h3 {
@@ -43,7 +141,6 @@ st.markdown("""
         font-weight: 800 !important;
     }
     
-    /* Make all text bright */
     p, span, label, div {
         color: #c5d3e0 !important;
     }
@@ -54,15 +151,24 @@ st.markdown("""
         border-radius: 16px;
         padding: 28px 24px;
         backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        animation: scaleIn 0.6s ease-out;
+        animation-fill-mode: both;
     }
     
+    .crypto-card:nth-child(1) { animation-delay: 0.1s; }
+    .crypto-card:nth-child(2) { animation-delay: 0.2s; }
+    .crypto-card:nth-child(3) { animation-delay: 0.3s; }
+    .crypto-card:nth-child(4) { animation-delay: 0.4s; }
+    .crypto-card:nth-child(5) { animation-delay: 0.5s; }
+    .crypto-card:nth-child(6) { animation-delay: 0.6s; }
+    
     .crypto-card:hover {
-        border-color: rgba(0, 212, 255, 0.3);
-        box-shadow: 0 12px 40px rgba(0, 212, 255, 0.12);
-        transform: translateY(-6px);
-        background: linear-gradient(135deg, rgba(15, 25, 50, 0.85) 0%, rgba(10, 14, 39, 0.6) 100%);
+        border-color: rgba(0, 212, 255, 0.5);
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.4), 0 12px 40px rgba(0, 212, 255, 0.15);
+        transform: translateY(-12px) scale(1.02);
+        background: linear-gradient(135deg, rgba(15, 25, 50, 0.95) 0%, rgba(10, 14, 39, 0.7) 100%);
     }
     
     .crypto-price {
@@ -70,14 +176,17 @@ st.markdown("""
         font-weight: 800;
         margin: 16px 0 12px 0;
         letter-spacing: -0.5px;
+        animation: fadeInUp 0.8s ease-out 0.3s both;
     }
     
     .price-up {
         color: #0fd88f;
+        animation: pulse 2s ease-in-out infinite;
     }
     
     .price-down {
         color: #ff5757;
+        animation: pulse 2s ease-in-out infinite;
     }
     
     .crypto-name {
@@ -87,12 +196,14 @@ st.markdown("""
         text-transform: uppercase;
         letter-spacing: 1.5px;
         margin-bottom: 8px;
+        animation: fadeInDown 0.6s ease-out 0.1s both;
     }
     
     .crypto-change {
         font-size: 13px;
         font-weight: 700;
         margin-top: 12px;
+        animation: fadeInUp 0.6s ease-out 0.4s both;
     }
     
     .alert-buy {
@@ -102,6 +213,14 @@ st.markdown("""
         padding: 24px;
         backdrop-filter: blur(10px);
         margin: 20px 0;
+        animation: slideInLeft 0.6s ease-out;
+        transition: all 0.3s ease;
+    }
+    
+    .alert-buy:hover {
+        border-color: #0fd88f;
+        box-shadow: 0 0 20px rgba(15, 216, 143, 0.3), inset 0 0 20px rgba(15, 216, 143, 0.05);
+        transform: translateX(8px);
     }
     
     .alert-sell {
@@ -111,6 +230,14 @@ st.markdown("""
         padding: 24px;
         backdrop-filter: blur(10px);
         margin: 20px 0;
+        animation: slideInLeft 0.6s ease-out;
+        transition: all 0.3s ease;
+    }
+    
+    .alert-sell:hover {
+        border-color: #ff5757;
+        box-shadow: 0 0 20px rgba(255, 87, 87, 0.3), inset 0 0 20px rgba(255, 87, 87, 0.05);
+        transform: translateX(8px);
     }
     
     .alert-hold {
@@ -120,6 +247,14 @@ st.markdown("""
         padding: 24px;
         backdrop-filter: blur(10px);
         margin: 20px 0;
+        animation: slideInLeft 0.6s ease-out;
+        transition: all 0.3s ease;
+    }
+    
+    .alert-hold:hover {
+        border-color: #ffc107;
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.3), inset 0 0 20px rgba(255, 193, 7, 0.05);
+        transform: translateX(8px);
     }
     
     .alert-buy h3, .alert-sell h3, .alert-hold h3 {
@@ -144,6 +279,15 @@ st.markdown("""
         display: flex;
         justify-content: space-between;
         align-items: center;
+        animation: slideInLeft 0.5s ease-out;
+        transition: all 0.3s ease;
+    }
+    
+    .portfolio-card:hover {
+        border-color: rgba(0, 212, 255, 0.3);
+        background: rgba(15, 25, 50, 0.6);
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        transform: translateX(8px);
     }
     
     [data-testid="stTabs"] [role="tablist"] {
@@ -154,6 +298,7 @@ st.markdown("""
         align-items: stretch;
         padding-bottom: 0;
         width: 100%;
+        animation: fadeInDown 0.8s ease-out;
     }
     
     [data-testid="stTabs"] [role="tab"] {
@@ -164,7 +309,7 @@ st.markdown("""
         color: #8fa3b8 !important;
         font-weight: 800 !important;
         padding: 20px 50px !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1) !important;
         font-size: 15px !important;
         text-transform: uppercase !important;
         letter-spacing: 1.2px !important;
@@ -172,32 +317,36 @@ st.markdown("""
         flex: 1 !important;
         min-width: 200px !important;
         text-align: center !important;
+        animation: fadeInDown 0.8s ease-out;
     }
     
     [data-testid="stTabs"] [role="tab"]:hover {
-        background: rgba(0, 212, 255, 0.1) !important;
-        border-color: rgba(0, 212, 255, 0.4) !important;
+        background: rgba(0, 212, 255, 0.15) !important;
+        border-color: rgba(0, 212, 255, 0.5) !important;
         color: #00d4ff !important;
-        transform: translateY(-3px) !important;
+        transform: translateY(-6px) !important;
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2) !important;
     }
     
     [data-testid="stTabs"] [role="tab"][aria-selected="true"] {
-        background: linear-gradient(180deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 150, 200, 0.1) 100%) !important;
+        background: linear-gradient(180deg, rgba(0, 212, 255, 0.25) 0%, rgba(0, 150, 200, 0.15) 100%) !important;
         color: #00d4ff !important;
-        border: 1.5px solid rgba(0, 212, 255, 0.5) !important;
+        border: 1.5px solid rgba(0, 212, 255, 0.6) !important;
         border-bottom: 3px solid #00d4ff !important;
-        box-shadow: 0 10px 25px rgba(0, 212, 255, 0.15) !important;
+        box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2) !important;
         font-weight: 900 !important;
+        animation: glow 2s ease-in-out infinite;
     }
     
     input, select {
-        background-color: rgba(0, 212, 255, 0.15) !important;
-        border: 2px solid rgba(0, 212, 255, 0.3) !important;
+        background-color: rgba(0, 212, 255, 0.12) !important;
+        border: 2px solid rgba(0, 212, 255, 0.25) !important;
         color: #000000 !important;
-        border-radius: 8px !important;
+        border-radius: 10px !important;
         font-size: 15px !important;
         font-weight: 700 !important;
         padding: 12px !important;
+        transition: all 0.3s ease !important;
     }
     
     input::placeholder {
@@ -206,10 +355,11 @@ st.markdown("""
     }
     
     input:focus {
-        background-color: rgba(0, 212, 255, 0.25) !important;
+        background-color: rgba(0, 212, 255, 0.22) !important;
         border-color: #00d4ff !important;
         outline: none !important;
         color: #000000 !important;
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important;
     }
     
     [data-testid="stNumberInput"] input {
@@ -234,19 +384,41 @@ st.markdown("""
         border: none !important;
         color: #000 !important;
         font-weight: 700 !important;
-        border-radius: 8px !important;
-        transition: all 0.3s ease !important;
+        border-radius: 10px !important;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1) !important;
         font-size: 13px !important;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    button:hover::before {
+        left: 100%;
     }
     
     button:hover {
-        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.25) !important;
+        box-shadow: 0 12px 35px rgba(0, 212, 255, 0.35) !important;
+        transform: translateY(-4px) !important;
+    }
+    
+    button:active {
         transform: translateY(-2px) !important;
     }
     
     [data-testid="stMetricValue"] {
         font-size: 28px !important;
         color: #00d4ff !important;
+        animation: fadeInUp 0.8s ease-out;
     }
     
     [data-testid="stMetricLabel"] {
@@ -256,19 +428,31 @@ st.markdown("""
         text-transform: uppercase !important;
         letter-spacing: 1.2px !important;
     }
+    
+    .metric-container {
+        animation: slideInUp 0.6s ease-out;
+    }
+    
+    hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+        margin: 30px 0;
+        animation: fadeInDown 0.8s ease-out;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# Header
+# Header with animation
 st.markdown("""
-<div style='text-align: center; padding: 40px 0px; margin-bottom: 40px;'>
-    <div style='font-size: 14px; color: #00d4ff; font-weight: 700; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;'>
+<div style='text-align: center; padding: 40px 0px; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out;'>
+    <div style='font-size: 48px; color: #abd9a7; font-weight: 900; letter-spacing: 3px; margin-bottom: 15px; text-transform: uppercase; animation: float 3s ease-in-out infinite;'>
         ⚡ CRYPTALYZE
     </div>
-    <h1 style='font-size: 52px; margin: 0; color: #ffffff; font-weight: 800; letter-spacing: -1px;'>
+    <h1 style='font-size: 42px; margin: 0; color: #c9912e; font-weight: 700; letter-spacing: -1px; animation: fadeInDown 0.8s ease-out 0.2s both;'>
         AI Market Intelligence Platform
     </h1>
-    <p style='color: #7a8ba0; font-size: 13px; margin-top: 15px; letter-spacing: 1px; text-transform: uppercase;'>
+    <p style='color: #7a8ba0; font-size: 13px; margin-top: 15px; letter-spacing: 1px; text-transform: uppercase; animation: fadeInUp 0.8s ease-out 0.4s both;'>
         Enterprise-Grade Crypto Analytics & Predictions
     </p>
 </div>
@@ -382,7 +566,6 @@ def generate_triple_signal(df):
         return "🟡 HOLD", "Medium"
 
 def get_sentiment(crypto_name):
-    """Generate sentiment based on price movement and RSI"""
     np.random.seed(hash(crypto_name) % 2**32)
     bullish = np.random.randint(45, 80)
     bearish = np.random.randint(10, 30)
@@ -424,7 +607,6 @@ with st.sidebar:
     
     st.markdown("---")
     
-    # Auto-refresh slider in sidebar
     st.markdown("### 🔄 Auto-Refresh Settings")
     refresh_enabled = st.checkbox("Enable Auto-Refresh", value=False)
     if refresh_enabled:
@@ -576,43 +758,46 @@ with tab3:
         key="signals"
     )
     
-    for crypto in selected:
-        df = fetch_crypto_data(crypto)
-        if df is not None:
-            df = calculate_indicators(df)
-            
-            st.markdown(f"""
-            <div style='background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 150, 200, 0.1) 100%); border-left: 4px solid #00d4ff; padding: 16px; border-radius: 8px; margin-bottom: 20px;'>
-                <h3 style='color: #00d4ff; margin: 0; font-size: 18px;'>{crypto}</h3>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            col1, col2, col3, col4 = st.columns(4)
-            
-            with col1:
-                st.metric("Price", f"${df['price'].iloc[-1]:,.0f}")
-            with col2:
-                st.metric("RSI", f"{df['RSI'].iloc[-1]:.1f}")
-            with col3:
-                trend = "🔺 Bullish" if df["MA_7"].iloc[-1] > df["MA_21"].iloc[-1] else "🔻 Bearish"
-                st.metric("Trend", trend)
-            with col4:
-                pred, conf = predict_trend_reversal(df)
-                status = "⚠️ YES" if pred == 1 else "✅ NO"
-                st.metric("Reversal Risk", status)
-            
-            st.markdown("")
-            
-            signal, confidence = generate_triple_signal(df)
-            
-            if "BUY" in signal:
-                st.markdown(f'<div class="alert-buy"><h3>{signal}</h3><p>Confidence: <b>{confidence}</b></p></div>', unsafe_allow_html=True)
-            elif "SELL" in signal:
-                st.markdown(f'<div class="alert-sell"><h3>{signal}</h3><p>Confidence: <b>{confidence}</b></p></div>', unsafe_allow_html=True)
-            else:
-                st.markdown(f'<div class="alert-hold"><h3>{signal}</h3><p>Confidence: <b>{confidence}</b></p></div>', unsafe_allow_html=True)
-            
-            st.markdown("---")
+    if not selected:
+        st.info("Select at least one crypto to analyze")
+    else:
+        for crypto in selected:
+            df = fetch_crypto_data(crypto)
+            if df is not None:
+                df = calculate_indicators(df)
+                
+                st.markdown(f"""
+                <div style='background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 150, 200, 0.1) 100%); border-left: 4px solid #00d4ff; padding: 16px; border-radius: 8px; margin-bottom: 20px; animation: slideInLeft 0.6s ease-out;'>
+                    <h3 style='color: #00d4ff; margin: 0; font-size: 18px;'>{crypto}</h3>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    st.metric("Price", f"${df['price'].iloc[-1]:,.0f}")
+                with col2:
+                    st.metric("RSI", f"{df['RSI'].iloc[-1]:.1f}")
+                with col3:
+                    trend = "📈 Bullish" if df["MA_7"].iloc[-1] > df["MA_21"].iloc[-1] else "📉 Bearish"
+                    st.metric("Trend", trend)
+                with col4:
+                    pred, conf = predict_trend_reversal(df)
+                    status = "⚠️ YES" if pred == 1 else "✅ NO"
+                    st.metric("Reversal Risk", status)
+                
+                st.markdown("")
+                
+                signal, confidence = generate_triple_signal(df)
+                
+                if "BUY" in signal:
+                    st.markdown(f'<div class="alert-buy"><h3>{signal}</h3><p>Confidence: <b>{confidence}</b></p></div>', unsafe_allow_html=True)
+                elif "SELL" in signal:
+                    st.markdown(f'<div class="alert-sell"><h3>{signal}</h3><p>Confidence: <b>{confidence}</b></p></div>', unsafe_allow_html=True)
+                else:
+                    st.markdown(f'<div class="alert-hold"><h3>{signal}</h3><p>Confidence: <b>{confidence}</b></p></div>', unsafe_allow_html=True)
+                
+                st.markdown("---")
 
 with tab4:
     st.markdown("### Market Intelligence & Sentiment")
@@ -625,28 +810,31 @@ with tab4:
         key="analysis"
     )
     
-    for crypto in selected:
-        sentiment = get_sentiment(crypto)
-        
-        st.markdown(f"""
-        <div style='background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 150, 200, 0.1) 100%); border-left: 4px solid #00d4ff; padding: 16px; border-radius: 8px; margin-bottom: 20px;'>
-            <h3 style='color: #00d4ff; margin: 0; font-size: 18px;'>{crypto} Deep Analysis</h3>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.markdown(f'<div style="text-align: center;"><div style="font-size: 32px; font-weight: 800; color: #0fd88f;">{sentiment["bullish"]}%</div><p style="color: #0fd88f; font-weight: bold; font-size: 12px; margin-top: 8px;">BULLISH</p></div>', unsafe_allow_html=True)
-        with col2:
-            st.markdown(f'<div style="text-align: center;"><div style="font-size: 32px; font-weight: 800; color: #ffc107;">{sentiment["neutral"]}%</div><p style="color: #ffc107; font-weight: bold; font-size: 12px; margin-top: 8px;">NEUTRAL</p></div>', unsafe_allow_html=True)
-        with col3:
-            st.markdown(f'<div style="text-align: center;"><div style="font-size: 32px; font-weight: 800; color: #ff5757;">{sentiment["bearish"]}%</div><p style="color: #ff5757; font-weight: bold; font-size: 12px; margin-top: 8px;">BEARISH</p></div>', unsafe_allow_html=True)
-        
-        st.info("Real-time sentiment from social media & community discussions")
-        st.markdown("---")
+    if not selected:
+        st.info("Select at least one crypto to analyze")
+    else:
+        for crypto in selected:
+            sentiment = get_sentiment(crypto)
+            
+            st.markdown(f"""
+            <div style='background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 150, 200, 0.1) 100%); border-left: 4px solid #00d4ff; padding: 16px; border-radius: 8px; margin-bottom: 20px; animation: slideInLeft 0.6s ease-out;'>
+                <h3 style='color: #00d4ff; margin: 0; font-size: 18px;'>{crypto} Deep Analysis</h3>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.markdown(f'<div style="text-align: center;"><div style="font-size: 32px; font-weight: 800; color: #0fd88f; animation: fadeInUp 0.8s ease-out;">{sentiment["bullish"]}%</div><p style="color: #0fd88f; font-weight: bold; font-size: 12px; margin-top: 8px;">BULLISH</p></div>', unsafe_allow_html=True)
+            with col2:
+                st.markdown(f'<div style="text-align: center;"><div style="font-size: 32px; font-weight: 800; color: #ffc107; animation: fadeInUp 0.8s ease-out 0.1s both;">{sentiment["neutral"]}%</div><p style="color: #ffc107; font-weight: bold; font-size: 12px; margin-top: 8px;">NEUTRAL</p></div>', unsafe_allow_html=True)
+            with col3:
+                st.markdown(f'<div style="text-align: center;"><div style="font-size: 32px; font-weight: 800; color: #ff5757; animation: fadeInUp 0.8s ease-out 0.2s both;">{sentiment["bearish"]}%</div><p style="color: #ff5757; font-weight: bold; font-size: 12px; margin-top: 8px;">BEARISH</p></div>', unsafe_allow_html=True)
+            
+            st.info("Real-time sentiment from social media & community discussions")
+            st.markdown("---")
 
 st.markdown("""
-<div style='text-align: center; padding: 50px 20px 30px 20px; color: #5a6d84; font-size: 11px; border-top: 1px solid rgba(0, 212, 255, 0.08); margin-top: 80px;'>
+<div style='text-align: center; padding: 50px 20px 30px 20px; color: #5a6d84; font-size: 11px; border-top: 1px solid rgba(0, 212, 255, 0.08); margin-top: 80px; animation: fadeInUp 0.8s ease-out;'>
     <p style='font-weight: 600;'>CRYPTALYZE • Enterprise Crypto Analytics Platform</p>
     <p style='margin-top: 8px;'>Real-time Intelligence • ML Predictions • Sentiment Analysis • 100% FREE</p>
 </div>
