@@ -112,19 +112,19 @@ st.markdown("""
     }
     
     body {
-        background: linear-gradient(135deg, #0a0e27 0%, #10152d 100%);
+        background: linear-gradient(135deg, #0f3a4d 0%, #10152d 100%);
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         animation: fadeInDown 0.8s ease-out;
     }
     
     [data-testid="stMainBlockContainer"] {
-        background: linear-gradient(135deg, #0a0e27 0%, #10152d 100%);
+        background: linear-gradient(135deg, #0f3a4d 0%, #10152d 100%);
         padding-top: 20px;
         animation: fadeInDown 0.8s ease-out;
     }
     
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0a0e27 0%, #151d3f 100%);
+        background: linear-gradient(180deg, #0f3a4d 0%, #151d3f 100%);
         border-right: 1px solid rgba(0, 212, 255, 0.08);
         animation: slideInLeft 0.8s ease-out;
     }
@@ -307,10 +307,10 @@ st.markdown("""
         border-bottom: none !important;
         border-radius: 14px 14px 0 0 !important;
         color: #8fa3b8 !important;
-        font-weight: 800 !important;
+        font-weight: 900 !important;
         padding: 20px 50px !important;
         transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1) !important;
-        font-size: 15px !important;
+        font-size: 17px !important;
         text-transform: uppercase !important;
         letter-spacing: 1.2px !important;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
@@ -447,10 +447,10 @@ st.markdown("""
 st.markdown("""
 <div style='text-align: center; padding: 40px 0px; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out;'>
     <div style='font-size: 48px; color: #00d4ff; font-weight: 900; letter-spacing: 3px; margin-bottom: 15px; text-transform: uppercase; animation: float 3s ease-in-out infinite;'>
-        ⚡ CRYPTALYZE
+        ⚡ CRYPTALYZE ⚡
     </div>
-    <h1 style='font-size: 52px; margin: 0; color: #ffffff; font-weight: 800; letter-spacing: -1px; animation: fadeInDown 0.8s ease-out 0.2s both;'>
-        AI Market Intelligence Platform
+    <h1 style='font-size: 52px; margin: 0; color: #5792ab; font-weight: 800; letter-spacing: -1px; animation: fadeInDown 0.8s ease-out 0.2s both;'>
+        Intelligent Trading Companion
     </h1>
     <p style='color: #7a8ba0; font-size: 13px; margin-top: 15px; letter-spacing: 1px; text-transform: uppercase; animation: fadeInUp 0.8s ease-out 0.4s both;'>
         Enterprise-Grade Crypto Analytics & Predictions
@@ -969,7 +969,7 @@ def create_advanced_chart(df, crypto):
 
 # Sidebar
 with st.sidebar:
-    st.markdown("## 💼 Portfolio Manager")
+    st.markdown("## Portfolio Manager")
     
     portfolio_crypto = st.selectbox("Select Crypto", list(crypto_map.keys()), label_visibility="collapsed")
     portfolio_amount = st.number_input("Amount", min_value=0.0, step=0.01, label_visibility="collapsed")
@@ -996,11 +996,11 @@ with st.sidebar:
     st.markdown("---")
     
     if st.session_state.portfolio:
-        st.markdown("### 📊 Holdings")
+        st.markdown("### Holdings")
         for crypto, amount in sorted(st.session_state.portfolio.items()):
             logo_url = crypto_logos.get(crypto, "")
             symbol = crypto_symbols.get(crypto, "")
-            st.markdown(f'<div class="portfolio-card"><div style="display: flex; align-items: center; gap: 8px;"><img src="{logo_url}" width="20" height="20" style="border-radius: 50%;"><span style="color: #e8f0ff; font-weight: 700;">{crypto} ({symbol})</span></div><span style="color: #00d4ff; font-weight: 800;">{amount:.4f}</span></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="portfolio-card"><div style="display: flex; align-items: center; gap: 12px;"><img src="{logo_url}" width="20" height="20" style="border-radius: 50%;"><span style="color: #e8f0ff; font-weight: 700;">{crypto} ({symbol})</span></div><span style="color: #00d4ff; font-weight: 800;">{amount:.4f}</span></div>', unsafe_allow_html=True)
     
     st.markdown("---")
     
@@ -1023,7 +1023,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
 # Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["📊 Markets", "💰 Portfolio", "🎯 Signals", "📈 Intelligence", "📰 News"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["LIVE ARENA", "VAULT", "PREDICTIONS", "SENTIMENT PULSE", "NEWS"])
 
 with tab1:
     st.markdown("### Live Crypto Markets")
@@ -1129,7 +1129,7 @@ with tab1:
             st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("---")
-    st.markdown("### 📊 Advanced Technical Analysis")
+    st.markdown("### 📈 TRADE BLUEPRINTS")
     
     adv_selected = st.multiselect(
         "Advanced Charts (MACD, Bollinger Bands)",
