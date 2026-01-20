@@ -747,28 +747,50 @@ def calculate_bollinger_bands(prices, window=20, num_std=2):
 
 @st.cache_data(ttl=300)
 def get_crypto_news(crypto_name):
-    """Generate crypto market updates"""
+    """Generate unique crypto market updates based on crypto data"""
     try:
+        df = fetch_crypto_data(crypto_name)
+        if df is None:
+            return None
+        
+        current_price = df["price"].iloc[-1]
+        prev_price = df["price"].iloc[0]
+        price_change = ((current_price - prev_price) / prev_price) * 100
+        
+        # Generate contextual news based on actual price movement
+        if price_change > 10:
+            trend = "Strong Uptrend"
+            sentiment = "bullish"
+        elif price_change > 0:
+            trend = "Moderate Uptrend"
+            sentiment = "slightly bullish"
+        elif price_change > -10:
+            trend = "Mild Downtrend"
+            sentiment = "slightly bearish"
+        else:
+            trend = "Strong Downtrend"
+            sentiment = "bearish"
+        
         news_articles = [
             {
-                "title": f"{crypto_name} Market Analysis - Key Price Levels",
-                "description": f"Latest technical analysis for {crypto_name}. Support and resistance levels identified. Trading volume shows strong interest from institutional investors.",
-                "source": {"name": "CryptoAnalytics"},
+                "title": f"{crypto_name} Shows {trend} - {price_change:+.1f}% in 30 Days",
+                "description": f"{crypto_name} has experienced a {trend.lower()} over the past month with a {price_change:+.1f}% price movement. Trading volumes have adjusted accordingly, with market participants positioning for {sentiment} sentiment.",
+                "source": {"name": "Market Analysis"},
                 "publishedAt": datetime.now().strftime("%Y-%m-%d"),
                 "url": "https://www.coingecko.com"
             },
             {
-                "title": f"{crypto_name} Trading Activity Surges",
-                "description": f"Recent trading volume for {crypto_name} has increased significantly. Market sentiment remains bullish with increasing adoption and positive community engagement.",
-                "source": {"name": "Crypto Market Watch"},
-                "publishedAt": (datetime.now()).strftime("%Y-%m-%d"),
+                "title": f"Technical Setup: {crypto_name} Key Levels Identified",
+                "description": f"Analysis of {crypto_name} reveals critical support at ${df['price'].min():,.0f} and resistance at ${df['price'].max():,.0f}. Current price at ${current_price:,.0f} suggests potential {('upside' if price_change > 0 else 'downside')} opportunity for traders monitoring this asset.",
+                "source": {"name": "Technical Analysis Team"},
+                "publishedAt": datetime.now().strftime("%Y-%m-%d"),
                 "url": "https://www.coingecko.com"
             },
             {
-                "title": f"Technical Forecast: {crypto_name} Price Outlook",
-                "description": f"Analysts provide bullish outlook for {crypto_name}. Moving averages aligned positively. Key support levels identified for risk management. Potential breakout expected.",
-                "source": {"name": "Crypto Technical Analysis"},
-                "publishedAt": (datetime.now()).strftime("%Y-%m-%d"),
+                "title": f"{crypto_name} Volatility Index: {(df['price'].std() / df['price'].mean() * 100):.1f}%",
+                "description": f"Current volatility metrics for {crypto_name} show {'elevated' if (df['price'].std() / df['price'].mean() * 100) > 5 else 'moderate'} price swings. This {'increases' if (df['price'].std() / df['price'].mean() * 100) > 5 else 'reduces'} trading opportunities and risk management importance for portfolio holders.",
+                "source": {"name": "Risk Analytics"},
+                "publishedAt": datetime.now().strftime("%Y-%m-%d"),
                 "url": "https://www.coingecko.com"
             }
         ]
