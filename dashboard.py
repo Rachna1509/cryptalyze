@@ -308,14 +308,14 @@ st.markdown("""
         border-radius: 14px 14px 0 0 !important;
         color: #8fa3b8 !important;
         font-weight: 900 !important;
-        padding: 20px 50px !important;
+        padding: 24px 60px !important;
         transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1) !important;
-        font-size: 17px !important;
+        font-size: 24px !important;
         text-transform: uppercase !important;
         letter-spacing: 1.2px !important;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
         flex: 1 !important;
-        min-width: 200px !important;
+        min-width: 300px !important;
         text-align: center !important;
         animation: fadeInDown 0.8s ease-out;
     }
@@ -445,16 +445,12 @@ st.markdown("""
 
 # Header with animation
 st.markdown("""
-<div style='text-align: center; padding: 40px 0px; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out;'>
+<div style='text-align: center; padding: 40px 10px; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out;'>
     <div style='font-size: 48px; color: #00d4ff; font-weight: 900; letter-spacing: 3px; margin-bottom: 15px; text-transform: uppercase; animation: float 3s ease-in-out infinite;'>
         ⚡ CRYPTALYZE ⚡
     </div>
     <h1 style='font-size: 52px; margin: 0; color: #5792ab; font-weight: 800; letter-spacing: -1px; animation: fadeInDown 0.8s ease-out 0.2s both;'>
         Intelligent Trading Companion
-    </h1>
-    <p style='color: #7a8ba0; font-size: 13px; margin-top: 15px; letter-spacing: 1px; text-transform: uppercase; animation: fadeInUp 0.8s ease-out 0.4s both;'>
-        Enterprise-Grade Crypto Analytics & Predictions
-    </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1008,7 +1004,7 @@ with st.sidebar:
     refresh_enabled = st.checkbox("Enable Auto-Refresh", value=False)
     if refresh_enabled:
         refresh_interval = st.slider("Refresh Interval (minutes)", min_value=5, max_value=60, value=15, step=5)
-        st.info(f"📊 Dashboard will refresh every **{refresh_interval} minutes**")
+        st.info(f"📊 Data will refresh every **{refresh_interval} minutes**")
     
     st.markdown("---")
     st.markdown("""
